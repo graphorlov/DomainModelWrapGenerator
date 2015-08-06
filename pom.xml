@@ -21,6 +21,79 @@
     </properties>
     <dependencies>
 
+        <dependency>
+            <groupId>ru.intertrust.cm-sochi</groupId>
+            <artifactId>configuration</artifactId>
+            <version>0.5.15-16</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>commons-module</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>classifier-module</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>envelopes-module</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>contacts-module</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>integration-module</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>task-module</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>documents-module</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>structure-plugin</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>gui-extensions-module</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>sochi-integration</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>org-structure</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>base-documents</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.intertrust.cm-base</groupId>
+            <artifactId>generic-documents</artifactId>
+            <version>6.0-a1-SNAPSHOT</version>
+        </dependency>-->
+
 
         <dependency>
             <groupId>org.codehaus.gmaven</groupId>
