@@ -1,6 +1,5 @@
 package ru.crimea.builder.base;
 
-
 import ru.crimea.builder.method.Method;
 
 import java.util.Set;
@@ -12,7 +11,7 @@ public class Field implements PrintElement {
     private Property property;
     private AccessModifier accessModifier;
 
-    private Field(Property property, AccessModifier accessModifier) {
+    public Field(Property property, AccessModifier accessModifier) {
         this.property = property;
         this.accessModifier = accessModifier;
     }
@@ -28,6 +27,7 @@ public class Field implements PrintElement {
     public static Field createProtectedField(String fieldName, TypeClass typeClass){
         return new Field(new Property(typeClass, fieldName), AccessModifier.PROTECTED);
     }
+
 
     public Method createGetter(){
         return Method.createGetter(this);

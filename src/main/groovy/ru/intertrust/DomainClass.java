@@ -1,4 +1,4 @@
-package ru.intertrus;
+package ru.intertrust;
 
 /**
  * Created by vitaliy.orlov@gmail.com on 30.07.2015.

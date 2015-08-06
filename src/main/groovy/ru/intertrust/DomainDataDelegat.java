@@ -1,4 +1,4 @@
-package ru.intertrus;
+package ru.intertrust;
 
 import java.util.Objects;
 

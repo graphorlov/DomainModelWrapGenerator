@@ -1,7 +1,5 @@
 package ru.crimea.builder.config;
 
-import ru.crimea.builder.base.Field;
-import ru.crimea.builder.base.Property;
 import ru.crimea.builder.base.TypeClass;
 
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class ClassConfig {
     private String moduleName;
     private String domainName;
     private String parentDomainName;
-    private List<FieldConfiguration> fieldsConfiguration = new ArrayList<FieldConfiguration>();
+    private List<FieldConfiguration> fieldsConfiguration = new ArrayList<>();
 
     public ClassConfig(String moduleName, String domainName) {
         this.moduleName = moduleName;

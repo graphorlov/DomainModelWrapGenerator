@@ -1,6 +1,7 @@
 package ru.crimea.builder.base;
 
 
+import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,8 +42,21 @@ public class TypeClass {
         return new TypeClass("java.util", "Date");
     }
 
+    public static TypeClass createClassExtendedFrom(TypeClass extendedClassType){
+        return new TypeClass("java.lang", "Class", extendedClassType){
+            @Override
+            public String getUsedClassName() {
+                return new StringBuilder(getClassName()).append("< ? extends " ).append(getParameters()[0].getUsedClassName()).append(">").toString();
+            }
+        };
+    }
+
     public static TypeClass createList(TypeClass parameterType){
         return new TypeClass("java.util", "List", parameterType);
+    }
+
+    public static TypeClass createMap(TypeClass keyType, TypeClass valueType){
+        return new TypeClass("java.util", "Map", keyType, valueType);
     }
 
     public boolean isVoid(){
@@ -70,6 +84,10 @@ public class TypeClass {
         return "";
     }
 
+    public String getFullClassName(){
+        return getPackageName() + "." + getClassName();
+    }
+
     public TypeClass[] getParameters(){
         return parameters;
     }
@@ -85,7 +103,7 @@ public class TypeClass {
                     result.append(", ");
                 }
                 isFirstParam = false;
-                result.append(typeClass.getClassName());
+                result.append(typeClass.getUsedClassName());
             }
             result.append(">");
         }

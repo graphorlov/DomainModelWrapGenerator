@@ -49,7 +49,7 @@ public class testMain {
         }});
 
 
-        context.buildContext("ru.intertrust.generated", new File("D:\\projectS\\JavaClassGeneration\\generated"));
+        context.buildContext("ru.intertrust.generated", new File("D:\\workspace\\projects\\DomainModelWrapGenerator\\generated"));
     }
 
     private static void test01() throws Exception{

@@ -2,6 +2,7 @@ package ru.crimea.builder.config;
 
 import ru.crimea.builder.base.AccessModifier;
 import ru.crimea.builder.base.Field;
+import ru.crimea.builder.base.StaticProperty;
 import ru.crimea.builder.base.TypeClass;
 import ru.crimea.builder.builder.JavaClassBuilder;
 import ru.crimea.builder.exception.ClassConfigurationException;
@@ -9,9 +10,7 @@ import ru.crimea.builder.method.Method;
 
 import java.io.File;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by vitaliy.orlov@gmail.com on 29.07.2015.
@@ -44,6 +43,7 @@ public class ClassConfigurationContext {
 
         // build back links
         for(Map.Entry<String, ClassConfig> entry : configMap.entrySet()){
+            JavaClassBuilder sourceBuilder = classBuilderMap.get(entry.getKey());
             for(FieldConfiguration field : entry.getValue().getFieldsConfiguration()){
                 if(field.isReference()){
 
@@ -52,8 +52,9 @@ public class ClassConfigurationContext {
                         throw new ClassConfigurationException("Cant find configuration for reference class with name {"+ field.getPropertyName()+"} in classConfig {"+entry.getValue().getDomainName()+"}", entry.getValue());
                     }
 
+
                     JavaClassBuilder builder = classBuilderMap.get(field.getPropertyType().getClassName());
-                    builder.addMethod(createBackReferentceGetter(parentPackage, entry.getValue(), field ));
+                    builder.addMethod(createBackReferentceGetter(parentPackage, sourceBuilder , field ));
 
                 }
             }
@@ -71,35 +72,45 @@ public class ClassConfigurationContext {
 
     private JavaClassBuilder buildClassFactory(Map<String, JavaClassBuilder> classBuilderMap, String parentPackage) {
         JavaClassBuilder builder = new JavaClassBuilder("DomainClassFactory", parentPackage);
-/*
+        String fieldName = "domainClassesMap";
+        TypeClass mainType = TypeClass.createClassExtendedFrom(TypeClass.createTypeClass("ru.intertrust", "DomainClass"));
+        Set<TypeClass> classesSet = new HashSet<>();
+        classesSet.add(TypeClass.createTypeClass("java.util", "HashMap"));
 
-        builder.addMethod(new Method(AccessModifier.PUBLIC_STATIC, TypeClass.createTypeClass("ru.intertrust", "DomainClass"), "getDomainClassByName") {
-            @Override
-            public String buildMethodBody() {
-                return null;
-            }
-        });
-        for(Map.Entry<String, JavaClassBuilder> entry : classBuilderMap.entrySet()){
-
+        final StringBuilder initStringResult = new StringBuilder();
+        for(Map.Entry<String, JavaClassBuilder> classEntry :classBuilderMap.entrySet()){
+            classesSet.add(classEntry.getValue().getCurrentType());
+            initStringResult.append("put(\"").append(classEntry.getKey()).append("\", ").append(classEntry.getValue().getCurrentType().getFullClassName()).append(".class);");
         }
-*/
+
+        builder.addField(new Field( new StaticProperty(TypeClass.createMap(TypeClass.createString(), mainType), fieldName,  classesSet) {
+            @Override
+            public String buildInitString() {
+                return new StringBuilder(" new HashMap<String, Class<? extends DomainClass>>(){{\n\t").append(initStringResult).append("}};").toString();
+            }
+        }, AccessModifier.PROTECTED));
+
+
+
+
         return builder;
     }
 
 
-    private Method createBackReferentceGetter(String parentPackage, final ClassConfig referenceConfig, final FieldConfiguration field) {
-        final TypeClass finalReturnTypeClass =  TypeClass.createList(field.getPropertyType());
-        Method result = new Method(AccessModifier.PUBLIC, finalReturnTypeClass , Method.generateMethodName("get", field.getPropertyName()+"List")) {
+    private Method createBackReferentceGetter(String parentPackage, final JavaClassBuilder sourceBuilder, final FieldConfiguration field) {
+
+        final TypeClass finalReturnTypeClass =  TypeClass.createList(sourceBuilder.getCurrentType());
+        Method result = new Method(AccessModifier.PUBLIC, finalReturnTypeClass , Method.generateMethodName("get", sourceBuilder.getCurrentType().getClassName() +"List")) {
             @Override
             public String buildMethodBody() {
                 return new StringBuilder("\t\treturn (").append(finalReturnTypeClass.getUsedClassName()).append(") ")
                         .append("get$sourceDomain().getFieldValueByNameFromType(")
                         .append(" \"").append(field.getPropertyName()).append("\", \"")
-                        .append(referenceConfig.getDomainName()).append("\");").toString();
+                        .append(sourceBuilder.getCurrentType().getClassName()).append("\");").toString();
             }
         };
 
-        result.addExtraUsesClasses(TypeClass.createTypeClass(generatePackageName(parentPackage , referenceConfig.getModuleName()), referenceConfig.getDomainName()));
+        result.addExtraUsesClasses(sourceBuilder.getCurrentType());
 
         return result;
     }

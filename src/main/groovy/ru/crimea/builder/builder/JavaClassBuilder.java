@@ -28,6 +28,10 @@ public class JavaClassBuilder  {
         return this;
     }
 
+    public TypeClass getCurrentType() {
+        return currentType;
+    }
+
     public JavaClassBuilder addMethod(Method method){
         methods.add(method);
         return this;
