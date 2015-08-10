@@ -1,3 +1,4 @@
+package ru.crimea.builder;
 /*import ru.crimea.builder.configuration.Configuration;
 import ru.intertrust.cm.core.config.ConfigurationExplorerImpl;
 import ru.intertrust.cm.core.config.DomainObjectTypeConfig;*/

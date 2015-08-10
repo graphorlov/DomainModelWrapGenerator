@@ -9,8 +9,6 @@ import ru.crimea.builder.exception.ClassConfigurationException;
 import ru.crimea.builder.method.Method;
 
 import java.io.File;
-import java.lang.reflect.Type;
-import java.util.*;
 
 /**
  * Created by vitaliy.orlov@gmail.com on 29.07.2015.
