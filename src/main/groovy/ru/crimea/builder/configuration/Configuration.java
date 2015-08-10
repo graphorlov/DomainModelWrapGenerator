@@ -1,10 +1,12 @@
 package ru.crimea.builder.configuration;
 
+/*
 import ru.intertrust.cm.core.config.ConfigurationExplorerImpl;
 import ru.intertrust.cm.core.config.ConfigurationSerializer;
 import ru.intertrust.cm.core.config.converter.ConfigurationClassesCache;
 import ru.intertrust.cm.core.config.module.ModuleConfiguration;
 import ru.intertrust.cm.core.config.module.ModuleService;
+*/
 
 /**
  * This class represents...
@@ -12,7 +14,7 @@ import ru.intertrust.cm.core.config.module.ModuleService;
  * Created by Alexander Bogatyrenko on 05.08.2015.
  */
 public class Configuration {
-
+/*
     private ConfigurationExplorerImpl configExplorer;
 
     public Configuration() throws Exception {
@@ -31,11 +33,14 @@ public class Configuration {
 //        service.getModuleList().remove(0);  remove core module
         for(ModuleConfiguration configuration : service.getModuleList()) {
             configuration.setConfigurationSchemaPath("config/configuration.xsd");
+
+
+
         }
         return service;
     }
 
     public ConfigurationExplorerImpl getConfigExplorer() {
         return configExplorer;
-    }
+    }*/
 }
